@@ -3,13 +3,23 @@ XPTemplate priority=personal
 XPT tag " <tag></tag>
 <`tag^>`cursor^</`tag^>
 
+XPT ta "<tag attrs="values">`cursor^</tag>"
+<`tag^ `:attr:^></`tag^>
+
 XPT t alias=tag
 
-XPT tt " <tag>`cursor^</tag>
+XPT T " <tag>`cursor^</tag>
 <`tag^>
     `cursor^
 </`tag^>
 ..XPT
+
+XPT Ta "<tag attrs="values">`cursor^</tag>
+<`tag^` 	...attrs{{^ `:attr:^`}}^>
+    `cursor^
+</`tag^>
+
+XPT tt alias=Ta
 
 XPT attr
 `at^="`val^"`att...{{^` `attribute^="`value^"`att...^`}}^
