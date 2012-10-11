@@ -15,8 +15,8 @@ let s:dirs = split(expand('%:p:h'), '/\|\\')[2:]
 
 fun! s:f.packageCalc()
     let candidate = join(s:dirs, '.')
-    if candidate =~ '.\{-}\.src\.\(\(main\|test\)\.java\.\)\?'
-        return substitute(candidate, '.\{-}\.src\.\(\(main\|test\)\.java\.\)\?', '', '')
+    if candidate =~ '.\{-}\.src\(\(\.main\|\.test\)\.java\.\)\?'
+        return substitute(candidate, '.\{-}\.src\(\(\.main\|\.test\)\.java\.\)\?', '', '')
     endif
     let returnlist = reverse(s:dirs[:])
     let index = 0

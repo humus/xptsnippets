@@ -51,8 +51,8 @@ let s:dirs = split(expand('%:p:h'), '/\|\\')[2:]
 
 fun! s:f.packageCalc()
     let candidate = join(s:dirs, '.')
-    if candidate =~ '.\{-}\.src\.\(\(main\|test\)\.scala\.\)\?'
-        return substitute(candidate, '.\{-}\.src\.\(\(main\|test\)\.scala\.\)\?', '', '')
+    if candidate =~ '.\{-}\.src\(\(\.main\|\.test\)\.scala\.\)\?'
+        return substitute(candidate, '.\{-}\.src\(\(\.main\|\.test\)\.scala\.\)\?', '', '')
     endif
     let returnlist = reverse(s:dirs[:])
     let index = 0
@@ -96,7 +96,7 @@ trait `trait^ `extends `parent^ {
 
 XPT def " def method\(args)
 def `method^(`args...{{^`param^:`Type^` 	params...{{^
-, `p^:`t^` 	params...^`}}^`}}^) `rettype...{{^:`Type^`}}^ `Include:_body^
+, `p^:`t^` 	params...^`}}^`}}^) `rettype...{{^:`Type^`}}^ = `Include:_body^
 
 XPT _body
 {
