@@ -13,7 +13,19 @@ XPTvar $UNDEFINED     null
 
 let s:dirs = split(expand('%:p:h'), '/\|\\')[2:]
 
-fun! s:f.packageCalc()
+fun! s:f.CamelCase(...) "{{{
+  let str = a:0 == 0 ? self.V() : a:1
+  let r = substitute(substitute(str, "[\/ _]", ' ', 'g'), '\<.', '\u&', 'g')
+  return substitute(r, " ", '', 'g')
+endfunction "}}}
+
+fun! s:f.CamelCase2(...) "{{{
+  let str = a:0 == 0 ? self.V() : a:1
+  let r = substitute(substitute(str, "[\/ _]", ' ', 'g'), '\<.', '\u&', 'g')
+  return substitute(substitute(r, " ", '', 'g'), '^.', '\l&', '')
+endfunction "}}}
+
+fun! s:f.PackageCalc()
     let candidate = join(s:dirs, '.')
     if candidate =~ '.\{-}\.src\(\(\.main\|\.test\)\.java\.\)\?'
         return substitute(candidate, '.\{-}\.src\(\(\.main\|\.test\)\.java\.\)\?', '', '')
@@ -27,14 +39,25 @@ fun! s:f.packageCalc()
     return reverse(returnlist)
 endfunction
 
+fun! s:f.Interface(...)
+    let basestr = expand('%:t')
+    if basestr =~ 'Impl\.java$'
+        return substitute(basestr, 'Impl.java', '', '')
+    endif
+    return 'interfase'
+endfunction
+
 XPTinclude
       \ _common/common
       \ java/java
 
 XPT package " package Choose=com.package.name
-XSET p=packageCalc()
-package `p^;
+package `:p:^`cursor^;
 ..XPT
+
+XPT p
+XSET p=PackageCalc()
+`p^`cursor^
 
 XPT an " @annotation\()
 @`annotation^(`cursor^)
@@ -43,4 +66,65 @@ XPT an " @annotation\()
 XPT ir " import something.class;
 import `package.class^;`cursor^
 ..XPT
+
+XPT ptest " @org.junit.Test\rpublic void testmethod\()
+@org.junit.Test
+`Include:_test^
+
+XPT test " @Test\rpublicvoid testmethod\()
+@Test
+`Include:_test^
+
+XPT _test " public void test...\() {\r}
+public void test`method^CamelCase()^^() {
+    `cursor^
+}
+
+XPT clas "public class Clazz ..extends ..implements"
+XSET parent|post=CamelCase()
+XSET interface|pre=Interface()
+public class `substitute(expand("%:t"), '.java$', '', '')^` extends
+...{{^ extends `parent^CamelCase()^^`}}^` implements
+...{{^ implements `interface^`}}^ {
+    `cursor^
+}
+
+XPT irunw "import org.junit.runners.RunWith
+import org.junit.runners.RunWith
+
+XPT runw
+XSET runner=Choose(['org.mockito.runners.MockitoJUnitRunner.class', 'org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests.class'])
+@RunWith(`runner^)`cursor^
+
+XPT rw
+XSET runner=Choose(['MockitoJUnitRunner.class', 'AbstractTransactionalJUnit4SpringContextTests.class'])
+@RunWith(`runner^)`cursor^
+
+XPT method
+public `String^ `method^CamelCase2()^^(){
+    `cursor^
+}
+
+XPT imvcspring
+import org.springframework.stereotypes.Controller
+import org.springframework.web.bind.annotation.RequestMapping
+
+XPT ctler
+@Controller
+@RequestMapping("`path^")
+`Include:clas^
+
+XPT dispatchmethod
+@RequestMapping("/`path^")
+`Include:method^
+
+XPT ijunit
+import org.junit.Test;
+import org.junit.Before;
+import org.junit.After;
+
+XPT deb
+if(`log^.isDebugEnabled()) {
+    `log^.debug("", `newobject[]...{{^new Object[]{`var^`...{{^`, `var^`...^`}}^}`}}^`,var1var2...{{^`var1^, `var2^`}}^);
+}
 
