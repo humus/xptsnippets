@@ -4,7 +4,7 @@ XPT tag " <tag></tag>
 <`tag^>`cursor^</`tag^>
 
 XPT ta "<tag attrs="values">`cursor^</tag>"
-<`tag^ `:attr:^></`tag^>
+<`tag^ `:attr:^>`cursor^</`tag^>
 
 XPT t alias=tag
 
