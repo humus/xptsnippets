@@ -40,9 +40,9 @@ fun! s:f.PackageCalc()
 endfunction
 
 fun! s:f.Interface(...)
-    let basestr = expand('%:t')
-    if basestr =~ 'Impl\.java$'
-        return substitute(basestr, 'Impl.java', '', '')
+    let basestr = expand('%:t:r')
+    if basestr =~ 'Impl$'
+        return substitute(basestr, 'Impl', '', '')
     endif
     return 'interfase'
 endfunction
@@ -52,12 +52,12 @@ XPTinclude
       \ java/java
 
 XPT package " package Choose=com.package.name
-package `:p:^`cursor^;
+package `:p:^`more?^;
 ..XPT
 
 XPT p
 XSET p=PackageCalc()
-`p^`cursor^
+`p^
 
 XPT an " @annotation\()
 @`annotation^(`cursor^)
@@ -89,12 +89,23 @@ public class `substitute(expand("%:t"), '.java$', '', '')^` extends
     `cursor^
 }
 
-XPT irunw "import org.junit.runners.RunWith
-import org.junit.runners.RunWith
+XPT irunw "import org.junit.runner.RunWith
+import org.junit.runner.RunWith
 
 XPT runw
 XSET runner=Choose(['org.mockito.runners.MockitoJUnitRunner.class', 'org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests.class'])
 @RunWith(`runner^)`cursor^
+
+XPT imockito " import Mockito.Mock
+import org.mockito.Mock;
+
+XPT imockfn "import Mockito.when|anyXXX
+XSET fn=Choose(['isA', 'when', 'anyString', 'anyLong', 'anyInt'])
+import static org.mockito.Mockito.`fn^;
+
+XPT iassert " import Assert.assertXXX
+XSET chose=Choose(['assertTrue', 'assertFalse', 'assertEquals'])
+import static org.junit.Assert.`fn^;
 
 XPT rw
 XSET runner=Choose(['MockitoJUnitRunner.class', 'AbstractTransactionalJUnit4SpringContextTests.class'])
@@ -102,12 +113,12 @@ XSET runner=Choose(['MockitoJUnitRunner.class', 'AbstractTransactionalJUnit4Spri
 
 XPT method
 public `String^ `method^CamelCase2()^^(){
-    `cursor^
+    `returnnull...{{^return null;`}}^`cursor^
 }
 
 XPT imvcspring
-import org.springframework.stereotypes.Controller
-import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 XPT ctler
 @Controller
@@ -125,6 +136,6 @@ import org.junit.After;
 
 XPT deb
 if(`log^.isDebugEnabled()) {
-    `log^.debug("", `newobject[]...{{^new Object[]{`var^`...{{^`, `var^`...^`}}^}`}}^`,var1var2...{{^`var1^, `var2^`}}^);
+    `log^.debug("`first...^`first^{}`first...^", `newobject[]...{{^new Object[]{`var^`...{{^`, `var^`...^`}}^}`}}^`,var1var2...{{^`var1^, `var2^`}}^);
 }
 

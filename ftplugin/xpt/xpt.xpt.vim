@@ -6,6 +6,9 @@ XPTinclude
 XPTvar $START '\`'
 XPTvar $END '\^'
 XPTvar $XPT 'XPT'
+XPTvar $CLOSEP )
+XPTvar $OPENP (
+XPTvar $SET XSET
 
 XPT end
 \`$END\^
@@ -37,4 +40,7 @@ XPT expand
 
 XPT al " XPT alias alias=template
 `$XPT^ `alias^ alias=`template^
+
+XPT setchoose " XPT SET \`plahceholder\^=Choose\(['1', '2'..., 'n'])
+`$SET^ `chose^=Choose`$OPENP^`:vimlist:^`$CLOSEP^
 
