@@ -90,7 +90,7 @@ public class `substitute(expand("%:t"), '.java$', '', '')^` extends
 }
 
 XPT irunw "import org.junit.runner.RunWith
-import org.junit.runner.RunWith
+import org.junit.runner.RunWith;
 
 XPT runw
 XSET runner=Choose(['org.mockito.runners.MockitoJUnitRunner.class', 'org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests.class'])
@@ -98,6 +98,7 @@ XSET runner=Choose(['org.mockito.runners.MockitoJUnitRunner.class', 'org.springf
 
 XPT imockito " import Mockito.Mock
 import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 XPT imockfn "import Mockito.when|anyXXX
 XSET fn=Choose(['isA', 'when', 'anyString', 'anyLong', 'anyInt'])
@@ -138,4 +139,56 @@ XPT deb
 if(`log^.isDebugEnabled()) {
     `log^.debug("`first...^`first^{}`first...^", `newobject[]...{{^new Object[]{`var^`...{{^`, `var^`...^`}}^}`}}^`,var1var2...{{^`var1^, `var2^`}}^);
 }
+
+
+XPT var " Var var
+XSET var|pre=clazz
+XSET var|def=S(R('Clazz'), '^.', '\l&', '')
+`Clazz^ `var^`cursor^
+
+XPT privar " private `:var:^;
+private `:var:^;
+
+XPT defassign
+this.`var^ = `var^;
+
+XPT log " Logger log = \(LoggerFactory\|Logger\).getLogger\(Clazz.class\)
+XSET logfactory=Choose(['LoggerFactory', 'Logger'])
+private static final Logger log = `logfactory^.getLogger(`expand("%:t:r")^.class);
+
+XPT ilog " import org.slf4j.LoggerFactory,Logger
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+XPT itsb " import ...ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
+
+XPT reftostr " reflectionToString
+ToStringBuilder.reflectionToString(`cursor^);
+
+XPT istereotype
+XSET stereotype=Choose(['Service', 'Repository', 'Component', 'Controller'])
+import org.springframework.stereotype.`stereotype^
+
+XPT n
+XSET instance|pre=clazz
+XSET instance|def=S(R('Clazz'), '^.', '\l&', '')
+`Clazz^ `instance^ = new `Clazz^();
+
+XPT iweban
+XSET at=Choose(['ResponseBody', 'RequestMapping', 'ModelAttribute', 'RequestParam'])
+import org.springframework.web.bind.annotation.`at^;
+
+XPT ivalidan
+import javax.validation.Valid;
+
+XPT inotnull
+import javax.validation.constraints.NotNull;
+
+XPT ihttpm " import ...RequestMethod.GET/POST
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
+XPT iautowired " import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired;
 
