@@ -46,3 +46,7 @@ XPT droidat
 XSET prefix|pre=android
     `prefix^:`att^="`value^"`...^
     `prefix^:`att^="`value^"`...^
+..XPT
+
+XPT short
+<`tag^`att...{{^` `attribute^="`value^"`att...^`}}^/>

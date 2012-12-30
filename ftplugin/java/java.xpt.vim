@@ -2,7 +2,7 @@ XPTemplate priority=personal
 
 let s:f = g:XPTfuncs()
 
-" use snippet 'varConst' to generate contant variables
+" use snippet 'varConst' to generate constant variables
 " use snippet 'varFormat' to generate formatting variables
 " use snippet 'varSpaces' to generate spacing variables
 
@@ -75,6 +75,11 @@ XPT test " @Test\rpublicvoid testmethod\()
 @Test
 `Include:_test^
 
+XPT tE "@Test\(expected = Clazz.class)
+@Test(expected = `Clazz^.class)
+`Include:_test^
+
+
 XPT _test " public void test...\() {\r}
 public void test`method^CamelCase()^^() {
     `cursor^
@@ -86,14 +91,16 @@ XSET interface|pre=Interface()
 public class `substitute(expand("%:t"), '.java$', '', '')^` extends
 ...{{^ extends `parent^CamelCase()^^`}}^` implements
 ...{{^ implements `interface^`}}^ {
-    `cursor^
+    `__init__...{{^public `substitute(expand("%:t"), '\.java$', '', '')^ (`vars...{{^`:var:^`}}^) {
+        `default assign...{{^`:defassign:^`}}^`cursor^
+    }`}}^
 }
 
 XPT irunw "import org.junit.runner.RunWith
 import org.junit.runner.RunWith;
 
 XPT runw
-XSET runner=Choose(['org.mockito.runners.MockitoJUnitRunner.class', 'org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests.class'])
+XSET runner=Choose(['org.mockito.runners.MockitoJUnitRunner.class', 'org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests.class', 'MockitoJUnitRunner.class'])
 @RunWith(`runner^)`cursor^
 
 XPT imockito " import Mockito.Mock
@@ -117,23 +124,49 @@ public `String^ `method^CamelCase2()^^(){
     `returnnull...{{^return null;`}}^`cursor^
 }
 
-XPT imvcspring
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 XPT ctler
 @Controller
 @RequestMapping("`path^")
-`Include:clas^
+XSET parent|post=CamelCase()
+XSET interface|pre=Interface()
+public class `substitute(expand("%:t"), '.java$', '', '')^` extends
+...{{^ extends `parent^CamelCase()^^`}}^ {
+    `__init__...{{^public `substitute(expand("%:t"), '\.java$', '', '')^ (`vars...{{^`:var:^`}}^) {
+        `default assign...{{^`:defassign:^`}}^`cursor^
+    }`}}^
+
+    `Include:Rbody^
+}
 
 XPT dispatchmethod
 @RequestMapping("/`path^")
 `Include:method^
 
+XPT Rbody
+@RequestMapping(`val...{{^value="/`url^"`}}^)
+public @ResponseBody
+Collection<ObjectError> `method^(`ModelAttribute...{{^@ModelAttribute `}}^`Valid...{{^@Valid `}}^`:var:^, BindingResult errors) {
+    Collection<ObjectError> returnval = errors.getAllErrors();
+    if (!errors.hasErrors()) {
+        `cursor^
+    }
+    return returnval;
+}
+
+XPT RB alias=Rbody
+
 XPT ijunit
 import org.junit.Test;
 import org.junit.Before;
 import org.junit.After;
+
+XPT iutil
+`List...{{^import java.util.List;`ArrayList...{{^
+import java.util.ArrayList;`}}^ `}}^`Map...{{^
+import java.util.Map; `HashMap...{{^
+import java.util.HashMap;`}}^`}}^`Date...{{^
+import java.util.Date;`}}^
+`Locale...{{^import java.util.Locale;`}}^
 
 XPT deb
 if(`log^.isDebugEnabled()) {
@@ -149,8 +182,16 @@ XSET var|def=S(R('Clazz'), '^.', '\l&', '')
 XPT privar " private `:var:^;
 private `:var:^;
 
+XPT pv alias=privar
+
 XPT defassign
 this.`var^ = `var^;
+
+XPT DA alias=defassign
+
+
+XPT cast
+`type^ `var^= (`type^) `cursor^
 
 XPT log " Logger log = \(LoggerFactory\|Logger\).getLogger\(Clazz.class\)
 XSET logfactory=Choose(['LoggerFactory', 'Logger'])
@@ -176,8 +217,12 @@ XSET instance|def=S(R('Clazz'), '^.', '\l&', '')
 `Clazz^ `instance^ = new `Clazz^();
 
 XPT iweban
-XSET at=Choose(['ResponseBody', 'RequestMapping', 'ModelAttribute', 'RequestParam'])
-import org.springframework.web.bind.annotation.`at^;
+`requestmapping?...{{^import org.springframework.web.bind.annotation.RequestMapping;`}}^`responsebody?...{{^
+import org.springframework.web.bind.annotation.ResponseBody;`}}^`ModelAttribute?...{{^
+import org.springframework.web.bind.annotation.ModelAttribute;`}}^`BindingResult?...{{^
+import org.springframework.validation.BindingResult;`}}^`ObjectError?...{{^
+import org.springframework.validation.ObjectError;`}}^
+
 
 XPT ivalidan
 import javax.validation.Valid;
@@ -189,6 +234,36 @@ XPT ihttpm " import ...RequestMethod.GET/POST
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+XPT imodelmap
+import org.springframework.ui.ModelMap;
+
+XPT ibinderrors
+XSET errors=Choose(['BindingResult', 'Errors'])
+import org.springframework.validation.`errors^;
+
 XPT iautowired " import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Autowired;
 
+XPT ibigd
+import java.math.BigDecimal;
+
+XPT C " File/Clazz Name
+XSET c=E('%:t:r')
+`c^`cursor^
+
+XPT skel
+`:package:^
+
+`:clas:^
+..XPT
+ 
+
+XPT bef
+@Before
+public void setUp(){
+    `cursor^
+}
+
+XPT pmock "@Mock \rprivate Var var;
+@Mock
+`:pv:^

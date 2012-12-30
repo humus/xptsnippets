@@ -14,5 +14,9 @@ XPTvar $SPcmd      ' '
 XPTvar $SPop       ' '
 
 XPT options
-{`entry...^`"`key`"^: `value^
-,`entry...^}
+{`
+    "`entry`"^: `value^`entries...{{^`   entry...{{^`,
+    "`key`"^: `value^`   entry...^`}}^
+`}}^}
+
+
