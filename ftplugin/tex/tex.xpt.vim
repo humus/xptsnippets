@@ -18,3 +18,22 @@ XPT descs " \begin{description}
 `cursor~
 
 
+XPT up " \usepackage
+\usepackage{`cursor~}
+
+XPT empty "\pagestyle{empty}
+\pagestyle{empty}
+
+XPT utabx
+\usepackage{tabularx}
+
+XPT fmt " \texttt \textbf \emph
+XSET fmt=Choose(['texttt', 'textbf', 'emph'])
+\\`fmt~{`cursor~}
+
+XPT txw " \textwidth
+\textwidth
+
+XPT noindent " \\setlength{\\parindent}{0pt}
+\setlength{\parindent}{0pt}
+

@@ -162,11 +162,15 @@ import org.junit.After;
 
 XPT iutil
 `List...{{^import java.util.List;`ArrayList...{{^
-import java.util.ArrayList;`}}^ `}}^`Map...{{^
-import java.util.Map; `HashMap...{{^
+import java.util.ArrayList;`}}^`}}^`Map...{{^
+import java.util.Map;`HashMap...{{^
 import java.util.HashMap;`}}^`}}^`Date...{{^
-import java.util.Date;`}}^
-`Locale...{{^import java.util.Locale;`}}^
+import java.util.Date;`}}^`Locale...{{^
+import java.util.Locale;`}}^
+
+XPT iu
+import java.util.`clazz^;`cursor^
+
 
 XPT deb
 if(`log^.isDebugEnabled()) {
@@ -177,10 +181,13 @@ if(`log^.isDebugEnabled()) {
 XPT var " Var var
 XSET var|pre=clazz
 XSET var|def=S(R('Clazz'), '^.', '\l&', '')
-`Clazz^ `var^`cursor^
+`Clazz^ `var^
+
+XPT v " Var var
+`:var:^`=...{{^= `cursor^`}}^;
 
 XPT privar " private `:var:^;
-private `:var:^;
+private `:var:^;`cursor^
 
 XPT pv alias=privar
 
