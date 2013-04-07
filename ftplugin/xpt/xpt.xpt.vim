@@ -42,5 +42,8 @@ XPT al " XPT alias alias=template
 `$XPT^ `alias^ alias=`template^
 
 XPT setchoose " XPT SET \`plahceholder\^=Choose\(['1', '2'..., 'n'])
-`$SET^ `chose^=Choose`$OPENP^`:vimlist:^`$CLOSEP^
+`$SET^ `choose^=Choose`$OPENP^`:vimlist:^`$CLOSEP^
+
+XPT setdef
+`$SET^ `choose^|def=`def^
 

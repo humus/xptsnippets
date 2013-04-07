@@ -1,5 +1,10 @@
 XPTemplate priority=personal
 
+XPT ver
+<?xml version="`1.0^" encoding="`utf-8^" ?>
+
+..XPT
+
 XPT tag " <tag></tag>
 <`tag^>`cursor^</`tag^>
 
