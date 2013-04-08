@@ -11,9 +11,6 @@ XPTinclude
       \ _common/common
       \ xml/xml
 
-XPT tt " <tag></tag>
-<`tag^>`cursor^</`tag^>
-
 XPT target " <target name="target"></target>
 <target name="`target^">
 `cursor^
@@ -27,4 +24,5 @@ if `cond^
     `passit^
 `_else...^`}}^
 end
+
 

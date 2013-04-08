@@ -1,4 +1,4 @@
-XPTemplate priority=personal mark=`~
+XPTemplate priority=personal
 
 let s:f = g:XPTfuncs()
 
@@ -12,11 +12,13 @@ XPTinclude
 
 XPT descs " \begin{description}
 \begin{description}
-    \item[`key~] `desc~~`...~
-    \item[`key~] `desc~~`...~
+    \item[`key^] `desc^^`...^
+    \item[`key^] `desc^^`...^
 \end{description}
-`cursor~
+`cursor^
 
+XPT bs " \\
+\textbackslash
 
 XPT up " \usepackage
 \usepackage{`cursor~}

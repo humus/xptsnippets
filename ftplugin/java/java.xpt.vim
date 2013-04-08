@@ -11,6 +11,13 @@ XPTvar $FALSE         false
 XPTvar $NULL          null
 XPTvar $UNDEFINED     null
 
+XPTvar $SPfun      ''
+XPTvar $SParg      ''
+XPTvar $SPcmd      ' '
+
+" (a, ** b, ** )
+XPTvar $SPop       ' '
+
 let s:dirs = split(expand('%:p:h'), '/\|\\')[2:]
 
 fun! s:f.CamelCase(...) "{{{
@@ -121,7 +128,8 @@ XSET runner=Choose(['MockitoJUnitRunner.class', 'AbstractTransactionalJUnit4Spri
 
 XPT method
 public `String^ `method^CamelCase2()^^(){
-    `returnnull...{{^return null;`}}^`cursor^
+    `cursor^
+    `returnnull...{{^return null;`}}^
 }
 
 XPT ctler
@@ -187,7 +195,7 @@ XPT v " Var var
 `:var:^`=...{{^= `cursor^`}}^;
 
 XPT privar " private `:var:^;
-private `:var:^;`cursor^
+private `:var:^;
 
 XPT pv alias=privar
 
@@ -223,12 +231,26 @@ XSET instance|pre=clazz
 XSET instance|def=S(R('Clazz'), '^.', '\l&', '')
 `Clazz^ `instance^ = new `Clazz^();
 
+XPT N
+XSET type|pre=Type
+XSET type|def=S(R('instance'), '^.', '\u&', '')
+`instance^ = new `type^();
+
 XPT iweban
 `requestmapping?...{{^import org.springframework.web.bind.annotation.RequestMapping;`}}^`responsebody?...{{^
 import org.springframework.web.bind.annotation.ResponseBody;`}}^`ModelAttribute?...{{^
 import org.springframework.web.bind.annotation.ModelAttribute;`}}^`BindingResult?...{{^
 import org.springframework.validation.BindingResult;`}}^`ObjectError?...{{^
 import org.springframework.validation.ObjectError;`}}^
+
+XPT ilist
+import java.util.List; `ArrayList=...{{^
+import java.util.ArrayList;`}}^
+
+XPT iwebd " import org.openqa.selenium...
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 
 XPT ivalidan
@@ -273,4 +295,72 @@ public void setUp(){
 
 XPT pmock "@Mock \rprivate Var var;
 @Mock
+`:pv:^
+
+XPT try wrap=what " try .. catch (..) .. finally
+XSET handler=$CL handling $CR
+try {
+    `what^
+}` `catch...^
+XSETm catch...|post
+catch (`Exception^ `e^) {
+    `handler^
+}` `catch...^
+XSETm END
+`finally...{{^
+finally {
+    `cursor^
+}`}}^
+
+
+XPT cmock " Clazz clazz = context.mock\(Clazz.class\)
+final `:var:^ = context.mock(`Clazz^.class);
+
+XPT checking "context.checking\(new Expectations\(){{}})
+context.checking(new Expectations{{
+        oneOf(`var^ ).`method^(`cursor^);
+}})
+
+XPT we
+with(equal(`cursor^));
+
+XPT will
+will(returnValue(`cursor^));
+
+XPT irefut
+import org.springframework.test.util.ReflectionTestUtils;
+
+XPT refusetf " ReflectionTestUtils.setField
+ReflectionTestUtils.setField(`target^, "`field^", `object^);
+
+XPT ap " .append\("")
+.append(`"`text?`"^`no_text?^)
+`append...{{^.append(`"`text?`"^`no_text?^)
+`append...^`}}^
+
+XPT ijdi " import javax.inject
+`PostConstruct...{{^import javax.annotation.PostConstruct;
+`}}^`Inject...{{^import javax.inject.Inject;
+`}}^`Named...{{^import javax.inject.Named;
+`}}^`Singleton...{{^import javax.inject.Singleton;
+`}}^
+
+XPT STR " private static final String NAME = ""
+private static final String `NAME^ = "`cursor^";
+
+XPT inject " @Inject¬¬private Var var;
+XSET instance|pre=clazz
+XSET instance|def=S(R('Clazz'), '^.', '\l&', '')
+@Inject
+private `Clazz^ `instance^;
+
+XPT hmap " new HashMap
+Map<`String^, `Object^> `map^ = new HashMap<`String^, `Object^>();
+
+XPT stateless " @Stateless\(name="" mappedName="")
+XSET NAME=substitute(expand('%:t:r'), '^.', '\l&', '')
+@Stateless(name="`NAME^", mappedName="`NAME^")
+
+XPT resource
+@Resource
 `:pv:^

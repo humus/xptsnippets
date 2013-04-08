@@ -1,10 +1,5 @@
 XPTemplate priority=personal
 
-XPT ver
-<?xml version="`1.0^" encoding="`utf-8^" ?>
-
-..XPT
-
 XPT tag " <tag></tag>
 <`tag^>`cursor^</`tag^>
 
@@ -56,44 +51,39 @@ XSET prefix|pre=android
 XPT short
 <`tag^`att...{{^` `attribute^="`value^"`att...^`}}^/>
 
-XPT log4j " log4j
-<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
-<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/' debug="true">
-`cursor^
+XPT log4j
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="true">
+    `cursor^
 </log4j:configuration>
-..XPT
 
-XPT consoleappender "appender name=console class=org...log4j.ConsoleAppender
+XPT rfa " RollingFileAppender
+<appender name="`appender^" class="org.apache.log4j.RollingFileAppender">
+    <param name="File" value="`file^"/>
+    <param name="MaxFileSize" value="`size^MB"/>
+    <param name="MaxBackupIndex" value="`max_index^"/>
+    <layout class="org.apache.log4j.PatternLayout">
+        <param name="ConversionPattern" value="`%p [%d{dd-MM-yy HH:mm:ss}] (%c{3}) %m%n^"/>
+    </layout>
+</appender>
+
+XPT console " ConsoleAppender
 <appender name="`console^" class="org.apache.log4j.ConsoleAppender">
     <layout class="org.apache.log4j.PatternLayout">
-        <param name="ConversionPattern" value="`%d %-5p [%t] %c - %m%n^"/>
+        <param name="ConversionPattern" value="[%p] [%d{dd-MM-yy HH:mm:ss}] %c{1}: %m%n"/>
     </layout>
 </appender>
 
-..XPT
-
-XPT rollingappender "appender name=appender class=org...log4j.RollingFileAppender
-<appender name="`fileappender^" class="org.apache.log4j.RollingFileAppender">
-    <param name="File" value="`file.log^"/>
-    <param name="MaxFileSize" value="`5MB^"/>
-    <param name="append" value="`true^"/>
-    <param name="MaxBackupIndex" value="5"/>
-    <layout class="org.apache.log4j.PatternLayout">
-        <param name="ConversionPattern" value="`%d %-5p [%t] %c - %m%n^"/>
-    </layout>
-</appender>
-
-..XPT
-
-XPT logger " logger name=domain.package
-XSET additivity=Choose(['true', 'false'])
-XSET level=Choose(['error', 'warn', 'info', 'debug', 'trace'])
-<logger name="`package^" additivity="`additivity^">
-    <level value="`level^"/>
+XPT logger " <logger name="name" additivity="true">..</logger>
+<logger name="`logger^" additivity="`true^">
+    <level value="`debug^"/>
     <appender-ref ref="`ref^"/>
 </logger>
 
-..XPT
+XPT root " <root>...</root>
+<root>
+    <level value="`info^"/>
+    <appender-ref ref="`ref^"/>
+</root>
 
 XPT rootlogger "root
 XSET level=Choose(['error', 'warn', 'info', 'debug', 'trace'])
@@ -101,3 +91,8 @@ XSET level=Choose(['error', 'warn', 'info', 'debug', 'trace'])
     <level value="`level^" />
     <appender-ref ref="`ref^" />
 </root>
+
+XPT head " <?xml version=1.0?>
+<?xml version="1.0" encoding="utf-8" ?>
+`cursor^
+

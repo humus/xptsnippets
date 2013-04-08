@@ -9,15 +9,6 @@ let s:f = g:XPTfuncs()
 
 XPTinclude
       \ _common/common
-      \ xml/xml
-
-XPT script " <script type="text/javascript"...
-<script type="text/javascript">
-    `cursor^
-</script>
-..XPT
-
-XPT ro " readonly="readonly"
-readonly="readonly"
+      \ java/java
 
 
