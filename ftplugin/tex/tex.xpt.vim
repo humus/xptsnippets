@@ -21,7 +21,7 @@ XPT bs " \\
 \textbackslash
 
 XPT up " \usepackage
-\usepackage{`cursor~}
+\usepackage`[`options`]^{`cursor^}
 
 XPT empty "\pagestyle{empty}
 \pagestyle{empty}
@@ -31,7 +31,7 @@ XPT utabx
 
 XPT fmt " \texttt \textbf \emph
 XSET fmt=Choose(['texttt', 'textbf', 'emph'])
-\\`fmt~{`cursor~}
+\\`fmt^{`cursor^}
 
 XPT txw " \textwidth
 \textwidth
@@ -39,3 +39,15 @@ XPT txw " \textwidth
 XPT noindent " \\setlength{\\parindent}{0pt}
 \setlength{\parindent}{0pt}
 
+XPT rcolumntype "{>{\raggedleft\arraybackslash}X}
+\\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+
+XPT makeat "makeatletter ... makeatother
+\makeattletter
+`cursor^
+\makeatother
+
+XPT cargs " \\command{}{}
+\\`command^`args...{{^{`arg^}`args...^`}}^`main...{{^{
+    `cursor^
+}`}}^

@@ -67,7 +67,7 @@ XSET p=PackageCalc()
 `p^
 
 XPT an " @annotation\()
-@`annotation^(`cursor^)
+@`annotation^`params...{{^(`cursor^)`}}^
 ..XPT
 
 XPT ir " import something.class;

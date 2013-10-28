@@ -92,6 +92,18 @@ XSET level=Choose(['error', 'warn', 'info', 'debug', 'trace'])
     <appender-ref ref="`ref^" />
 </root>
 
+XPT jrebel "xmlns="http://www.zeroturnaround.com"
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.zeroturnaround.com"
+            xsi:schemaLocation="http://www.zeroturnaround.com http://www.zeroturnaround.com/alderaan/rebel-2_0.xsd">
+    <classpath>
+        `cursor^
+    </classpath>
+</application>
+
+XPT jrd " dir name="dirname"
+<dir name="`cursor^"/>
+
 XPT head " <?xml version=1.0?>
 <?xml version="1.0" encoding="utf-8" ?>
 `cursor^
