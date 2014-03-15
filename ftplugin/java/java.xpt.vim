@@ -191,8 +191,7 @@ XSET var|pre=clazz
 XSET var|def=S(R('Clazz'), '^.', '\l&', '')
 `Clazz^ `var^
 
-XPT v " Var var
-`:var:^`=...{{^= `cursor^`}}^;
+XPT v alias=var
 
 XPT privar " private `:var:^;
 private `:var:^;
@@ -353,6 +352,19 @@ XSET instance|pre=clazz
 XSET instance|def=S(R('Clazz'), '^.', '\l&', '')
 @Inject
 private `Clazz^ `instance^;
+
+XPT ansession " @Session » session
+XSET Clazz|def=Session
+XSET instance|pre=session
+XSET instance|def=S(R('Clazz'), '^.', '\l&', '')
+@Session
+private `Clazz^ `instance^;`cursor^
+
+XPT ispringtest " import spring test statics
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 XPT hmap " new HashMap
 Map<`String^, `Object^> `map^ = new HashMap<`String^, `Object^>();
