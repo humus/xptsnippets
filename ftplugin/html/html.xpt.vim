@@ -20,4 +20,14 @@ XPT script " <script type="text/javascript"...
 XPT ro " readonly="readonly"
 readonly="readonly"
 
+XPT html5
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        `cursor^
+    </body>
+</html>
 
