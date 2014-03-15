@@ -52,6 +52,8 @@ XPT short
 <`tag^`att...{{^` `attribute^="`value^"`att...^`}}^/>
 
 XPT log4j
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN"
+    "http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd">
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="true">
     `cursor^
 </log4j:configuration>
