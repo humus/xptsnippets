@@ -9,6 +9,7 @@ let s:f = g:XPTfuncs()
 
 XPTinclude
     \ _common/common
+    \ html/html
 
 XPT decorator_title
 <decorator:title default="&iexcl;Sin t&iacute;tulo!" />
@@ -34,3 +35,12 @@ XPT tlibdecorator
 
 XPT tlibpage
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page" %>
+
+XPT springtlib
+XSET prefix=Choose(['s', 'spring'])
+<%@ taglib prefix="`prefix^" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
+XPT tlibfmt
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
