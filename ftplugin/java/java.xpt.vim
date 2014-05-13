@@ -175,7 +175,7 @@ import java.util.Map;`HashMap...{{^
 import java.util.HashMap;`}}^`}}^`Date...{{^
 import java.util.Date;`}}^`Locale...{{^
 import java.util.Locale;`}}^
-
+..XPT
 XPT iu
 import java.util.`clazz^;`cursor^
 
@@ -242,8 +242,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;`}}^`BindingResult
 import org.springframework.validation.BindingResult;`}}^`ObjectError?...{{^
 import org.springframework.validation.ObjectError;`}}^
 
+XPT web.bind.annotation
+`requestmapping?...{{^import org.springframework.web.bind.annotation.RequestMapping;
+`}}^`pathvariable?...{{^import org.springframework.web.bind.annotation.PathVariable;
+`}}^`requestmethod?...{{^import org.springframework.web.bind.annotation.RequestMethod;
+`}}^`requestparam?...{{^import org.springframework.web.bind.annotation.RequestParam;
+`}}^`responsebody?...{{^import org.springframework.web.bind.annotation.ResponseBody;`}}^
+..XPT
 XPT ilist
-import java.util.List; `ArrayList=...{{^
+import java.util.List;`ArrayList=...{{^
 import java.util.ArrayList;`}}^
 
 XPT iwebd " import org.openqa.selenium...
