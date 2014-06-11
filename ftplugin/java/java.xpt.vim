@@ -166,7 +166,9 @@ XPT RB alias=Rbody
 XPT ijunit
 import org.junit.Test;
 import org.junit.Before;
-import org.junit.After;
+import org.junit.After;`beforeclass-afterclass...{{^
+import org.junit.BeforeClass;
+import org.junit.AfterClass;`}}^
 
 XPT iutil
 `List...{{^import java.util.List;`ArrayList...{{^
@@ -297,6 +299,17 @@ XPT bef
 @Before
 public void setUp(){
     `cursor^
+}
+
+XPT beforeclass
+@BeforeClass
+public static void preSetUp(){
+    `cursor^
+}
+
+XPT afterclass
+@AfterClass
+public static postTearDown() {
 }
 
 XPT pmock "@Mock \rprivate Var var;

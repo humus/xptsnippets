@@ -107,6 +107,43 @@ XPT jrd " dir name="dirname"
 <dir name="`cursor^"/>
 
 XPT head " <?xml version=1.0?>
-<?xml version="1.0" encoding="utf-8" ?>
-`cursor^
+<?xml version="1.0" encoding="utf-8" ?>`cursor^
+
+XPT beansnsspring
+http://www.springframework.org/schema/beans`cursor^
+XPT aopnsspring
+http://www.springframework.org/schema/aop`cursor^
+XPT jeensspring
+http://www.springframework.org/schema/jee`cursor^
+XPT jpansspring
+http://www.springframework.org/schema/data/jpa`cursor^
+XPT txnsspring
+http://www.springframework.org/schema/tx`cursor^
+XPT utilnsspring
+http://www.springframework.org/schema/util`cursor^
+
+XPT beannsspringns alias=beansnsspring
+
+XPT beansslspring
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd`cursor^
+
+XPT aopslspring
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd`cursor^
+
+XPT jeeslspring
+http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd`cursor^
+
+XPT jpaslspring
+http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-data/jpa.xsd`cursor^
+
+XPT txslspring
+http://www.springframework.org/schema/tx/spring-tx.xsd`cursor^
+
+XPT utilslspring
+http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd`cursor^
+
+XPT beanslspring alias=beansslspring
+
+XPT xmlnsxsi
+http://www.w3.org/2001/XMLSchema-instance`cursor^
 
