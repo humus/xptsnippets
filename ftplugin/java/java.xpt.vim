@@ -396,3 +396,6 @@ XSET NAME=substitute(expand('%:t:r'), '^.', '\l&', '')
 XPT resource
 @Resource
 `:pv:^
+
+XPT demo
+@since : `printf("%s", "\`")^, bitches

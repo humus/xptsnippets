@@ -122,6 +122,9 @@ http://www.springframework.org/schema/tx`cursor^
 XPT utilnsspring
 http://www.springframework.org/schema/util`cursor^
 
+XPT ctxspring
+http://www.springframework.org/schema/ctx`cursor^
+
 XPT beannsspringns alias=beansnsspring
 
 XPT beansslspring
@@ -141,6 +144,10 @@ http://www.springframework.org/schema/tx/spring-tx.xsd`cursor^
 
 XPT utilslspring
 http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd`cursor^
+
+XPT ctxlspring
+http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd`cursor^
+""
 
 XPT beanslspring alias=beansslspring
 

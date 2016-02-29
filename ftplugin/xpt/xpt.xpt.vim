@@ -3,12 +3,14 @@ XPTemplate priority=personal
 XPTinclude
       \ _common/common
 
-XPTvar $START '\`'
-XPTvar $END '\^'
+XPTvar $START '`'
+XPTvar $END '^'
 XPTvar $XPT 'XPT'
 XPTvar $CLOSEP )
 XPTvar $OPENP (
 XPTvar $SET XSET
+XPTvar $ESCAPE \
+
 
 XPT end
 \`$END\^
@@ -18,25 +20,25 @@ XPT start
 
 
 XPT it
-`$START^`var^`$END^`cursor^
+\``var^`$END^`cursor^
 
 XPT h alias=it
 
 XPT cur
-`$START^cursor`$END^`cursor^
+\`cursor`$END^`cursor^
 
 XPT repeat " repeating template
-`$START^`name^...`$END^`cursor^`$START^`name^...`$END^
+\`...`$END^`cursor^`\``name^...`$END^
 
 XPT rep alias=repeat
 
-XPT repeat2 "repeating template 2
-`$START^`name^...{{`$END^`cursor^`$START^`name^...`$END^`$START^}}`$END^
+XPT repeat2
+\``name^...{{`$END^`cursor^\``name^...`$END^\`}}`$END^
 
 XPT Rep alias=repeat2
 
 XPT expand
-`$START^`name^...{{`$END^`cursor^`$START^}}`$END^
+\``name^...{{`$END^`cursor^\`}}`$END^
 
 XPT al " XPT alias alias=template
 `$XPT^ `alias^ alias=`template^
@@ -44,6 +46,4 @@ XPT al " XPT alias alias=template
 XPT setchoose " XPT SET \`plahceholder\^=Choose\(['1', '2'..., 'n'])
 `$SET^ `choose^=Choose`$OPENP^`:vimlist:^`$CLOSEP^
 
-XPT setdef
-`$SET^ `choose^|def=`def^
 
